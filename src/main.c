@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 20:38:20 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/22 18:42:51 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/07/22 18:52:01 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int main (int argc, char **argv, char **environ)
 	(void)argc;
 	(void)argv;
 	while (environ[i++])
-		tshell.environ[i] = strdup(environ[i]);
+		tshell.environ[i] = environ[i];
 	loop(&tshell);
 	
 	exit(1);
