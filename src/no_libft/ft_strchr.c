@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tokenadd_back.c                                 :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/19 19:38:46 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/22 22:35:57 by ecortes-         ###   ########.fr       */
+/*   Created: 2023/09/14 15:46:42 by ecortes-          #+#    #+#             */
+/*   Updated: 2024/07/22 22:52:49 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_tokenadd_back(t_token **lst, t_token *new)
+char	*ft_strchr(const char *s, int c)
 {
-	t_token	*node;
+	int	i;
 
-	if(new == NULL)
+	i = 0;
+	while (s[i])
 	{
-		printf("new vacio\n");
-		return;
+		if (s[i] == (char)c)
+			return ((char *)&s[i]);
+		i++;
 	}
-	if (*lst == NULL)
-		*lst = new;
-	else
-	{
-		node = *lst;
-		while (node->next)
-		{
-			node = node->next;
-		}
-		node->next = new;
-	}
+	if ((char)c == '\0')
+		return ((char *)&s[i]);
+	return (NULL);
 }
