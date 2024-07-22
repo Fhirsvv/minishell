@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:48:27 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/22 17:51:41 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/07/22 18:59:15 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	ft_count_words(char const *s, char c)
 
 	count = 0;
 	i = 0;
+	if(!s)
+		return (0);
 	while (s[i])
 	{
 		if (s[i] != c && (i == 0 || s[i - 1] == c))
