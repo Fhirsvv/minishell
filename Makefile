@@ -12,6 +12,7 @@ SRCS        :=      src/main.c \
                           src/no_libft/ft_calloc.c \
                           src/no_libft/ft_token_new.c \
                           src/no_libft/ft_strchr.c \
+                          src/no_libft/ft_array_duplicate.c \
                           
 OBJS        := $(SRCS:.c=.o)
 

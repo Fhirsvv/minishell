@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:18:48 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/22 22:53:02 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/07/23 00:07:31 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <stdint.h>
+#include <unistd.h>
 
 // ----LIBFT/MODIFICATED  LIBFT FUNCTIONS----------------------------------
 void	*ft_calloc(size_t num, size_t size);
@@ -31,5 +32,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *s1);
 size_t	ft_strlen(const char *str);
 char	*ft_strchr(const char *s, int c);
+char	**ft_array_duplicate(char **arr);
 
 #endif
