@@ -1,44 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_token_new.c                                     :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/19 19:27:57 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/22 18:17:11 by ecortes-         ###   ########.fr       */
+/*   Created: 2023/09/12 16:40:54 by ecortes-          #+#    #+#             */
+/*   Updated: 2024/07/22 18:23:35 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_token	*ft_token_new(char *str, int type)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	t_token	*new;
+	char		*result;
+	size_t		i;
 
-	new = malloc(sizeof(t_token));
-	if (new == NULL)
-	{
-		free(new);
+	i = 0;
+	if (start > ft_strlen(s))
+		return (ft_strdup(""));
+	if (ft_strlen(s) - start < len)
+		len = ft_strlen(s) - start;
+	result = (char *)malloc(len + 1);
+	if (!result)
 		return (NULL);
+	while (len > i)
+	{
+		result[i] = s[start + i];
+		i++;
 	}
-	new->content = strdup(str);
-	new->symbol = type;
-	new->next = NULL;
-	return (new);
+	result[i] = '\0';
+	return (result);
 }
-/*
-t_list	*ft_lstnew(void *content)
-{
-	t_list	*new;
-
-	new = malloc(sizeof(t_list));
-	if (new == NULL)
-	{
-		free(new);
-		return (NULL);
-	}
-	new->content = content;
-	new->next = NULL;
-	return (new);
-}*/

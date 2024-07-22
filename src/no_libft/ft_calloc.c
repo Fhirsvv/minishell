@@ -1,44 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_token_new.c                                     :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/19 19:27:57 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/22 18:17:11 by ecortes-         ###   ########.fr       */
+/*   Created: 2023/09/12 15:38:49 by ecortes-          #+#    #+#             */
+/*   Updated: 2024/07/22 18:14:24 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_token	*ft_token_new(char *str, int type)
+void	*ft_calloc(size_t num, size_t size)
 {
-	t_token	*new;
+	char	*ptr;
+	size_t	i;
 
-	new = malloc(sizeof(t_token));
-	if (new == NULL)
+	if (num >= SIZE_MAX || size >= SIZE_MAX)
+		return (NULL);
+	ptr = malloc(num * size);
+	if (ptr == NULL)
 	{
-		free(new);
+		free(ptr);
 		return (NULL);
 	}
-	new->content = strdup(str);
-	new->symbol = type;
-	new->next = NULL;
-	return (new);
+	if (ptr != NULL)
+	{
+		i = 0;
+		while (i < num * size)
+		{
+			ptr[i] = 0;
+			i++;
+		}
+	}
+	return (ptr);
 }
-/*
-t_list	*ft_lstnew(void *content)
-{
-	t_list	*new;
-
-	new = malloc(sizeof(t_list));
-	if (new == NULL)
-	{
-		free(new);
-		return (NULL);
-	}
-	new->content = content;
-	new->next = NULL;
-	return (new);
-}*/

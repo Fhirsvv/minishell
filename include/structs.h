@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 16:07:55 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/22 17:28:46 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/07/22 18:21:03 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_token
 {
 	char *content;
 	int symbol;
-	t_token *next;
+	struct s_token *next;
 }	t_token;
 
 typedef struct s_myshell

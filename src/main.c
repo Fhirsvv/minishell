@@ -6,12 +6,11 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 20:38:20 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/22 18:05:01 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/07/22 18:42:51 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-//gcc src/main.c -o mini -lreadline
 
 void tokenice(char *str, t_myshell *tshell)
 {
@@ -20,17 +19,17 @@ void tokenice(char *str, t_myshell *tshell)
 	type = 0;
 	if(strcmp(str, "|") == 0)
 		type = PIPE;
-	else if(strcmp(str, ">" == 0))
+	else if(strcmp(str, ">") == 0)
 		type = REDIR_D;
-	else if(strcmp(str, ">>" == 0))
+	else if(strcmp(str, ">>") == 0)
 		type = DOBLE_REDIR_D;
-	else if(strcmp(str, "<" == 0))
+	else if(strcmp(str, "<") == 0)
 		type = REDIR_I;
-	else if(strcmp(str, "<<" == 0))
+	else if(strcmp(str, "<<") == 0)
 		type = HERE_DOC;
 	else
 		type = WORD;
-	ft_lstadd_back(tshell->tokens, ft_token_new(str, type));
+	ft_lstadd_back(&tshell->tokens, ft_token_new(str, type));
 }
 
 void split_pipe(char *prompt, t_myshell *tshell)
@@ -41,11 +40,11 @@ void split_pipe(char *prompt, t_myshell *tshell)
 
 	i = 0;
 	split_pipes = ft_split(prompt, '|');
-	while (split_pipes[i])
+	while (split_pipes[i++])
 	{
 		split_spaces = ft_split(split_pipes[i], ' ');
 		//aqui algo para las comillas puede ser
-		tokenice(split_spaces, tshell);
+		tokenice(split_spaces[i], tshell);
 	}
 	
 }
@@ -55,8 +54,8 @@ void loop(t_myshell *tshell)
 	while (1)
 	{
 		tshell->prompt = readline("MINISHELL$ ");
-		if (strlen(tshell->prompt) > 0)
-			add_history(tshell->prompt);
+		/*if (strlen(tshell->prompt) > 0)
+			add_history(tshell->prompt);*/
 		split_pipe(tshell->prompt, tshell);
 	}
 }
@@ -66,7 +65,8 @@ int main (int argc, char **argv, char **environ)
 	t_myshell tshell;
 	int i = 0;
 	
-	(void *)argv;
+	(void)argc;
+	(void)argv;
 	while (environ[i++])
 		tshell.environ[i] = strdup(environ[i]);
 	loop(&tshell);
