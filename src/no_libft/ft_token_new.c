@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 19:27:57 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/22 18:17:11 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/07/22 21:21:39 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,7 @@ t_token	*ft_token_new(char *str, int type)
 	new->content = strdup(str);
 	new->symbol = type;
 	new->next = NULL;
+
+	//printf("nuevo token:\n%s\n%d\n", new->content, new->symbol);
 	return (new);
 }
-/*
-t_list	*ft_lstnew(void *content)
-{
-	t_list	*new;
-
-	new = malloc(sizeof(t_list));
-	if (new == NULL)
-	{
-		free(new);
-		return (NULL);
-	}
-	new->content = content;
-	new->next = NULL;
-	return (new);
-}*/

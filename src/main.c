@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 20:38:20 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/22 18:55:45 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/07/22 21:18:10 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void tokenice(char *str, t_myshell *tshell)
 		type = HERE_DOC;
 	else
 		type = WORD;
-	ft_lstadd_back(&tshell->tokens, ft_token_new(str, type));
+	t_token *aux = ft_token_new(str, type);
+	ft_lstadd_back(&tshell->tokens, aux);
 }
 
 void split_pipe(char *prompt, t_myshell *tshell)
@@ -40,11 +41,12 @@ void split_pipe(char *prompt, t_myshell *tshell)
 
 	i = 0;
 	split_pipes = ft_split(prompt, '|');
-	while (split_pipes[i++])
+	while (split_pipes[i])
 	{
 		split_spaces = ft_split(split_pipes[i], ' ');
 		//aqui algo para las comillas puede ser
 		tokenice(split_spaces[i], tshell);
+		i++;
 	}
 	
 }
@@ -60,6 +62,12 @@ void loop(t_myshell *tshell)
 	}
 }
 
+void init_tshell(t_myshell *myshell)
+{
+	myshell->tokens = NULL;
+	myshell->environ = NULL;
+	myshell->prompt = NULL;	
+}
 int main (int argc, char **argv, char **environ)
 {
 	t_myshell tshell;
@@ -70,6 +78,7 @@ int main (int argc, char **argv, char **environ)
 	(void)environ;
 	/*while (environ[i++])
 		tshell.environ[i] = strdup(environ[i]);*/
+	init_tshell(&tshell);
 	loop(&tshell);
 	
 	exit(1);
