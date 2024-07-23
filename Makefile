@@ -4,15 +4,16 @@ FLAGS    := -Wall -Wextra -Werror  -fsanitize=address -g3
 LDFLAGS     := -lreadline
 
 SRCS        :=      src/main.c \
-                          src/no_libft/ft_substr.c \
-                          src/no_libft/ft_strlen.c \
-                          src/no_libft/ft_tokenadd_back.c \
-                          src/no_libft/ft_strdup.c \
-                          src/no_libft/ft_split.c \
-                          src/no_libft/ft_calloc.c \
-                          src/no_libft/ft_token_new.c \
-                          src/no_libft/ft_strchr.c \
-                          src/no_libft/ft_array_duplicate.c \
+                        src/no_libft/ft_substr.c \
+                        src/no_libft/ft_strlen.c \
+                        src/no_libft/ft_tokenadd_back.c \
+                        src/no_libft/ft_strdup.c \
+                        src/no_libft/ft_split.c \
+                        src/no_libft/ft_calloc.c \
+                        src/no_libft/ft_token_new.c \
+                        src/no_libft/ft_strchr.c \
+                        src/no_libft/ft_array_duplicate.c \
+                        src/lexer/tokens.c \
                           
 OBJS        := $(SRCS:.c=.o)
 
