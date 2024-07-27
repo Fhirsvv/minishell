@@ -1,42 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/22 16:07:55 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/25 11:13:28 by ecortes-         ###   ########.fr       */
+/*   Created: 2024/07/24 15:35:53 by ecortes-          #+#    #+#             */
+/*   Updated: 2024/07/24 15:36:10 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-#define STRUCTS_H
+#include "../../include/minishell.h"
 
-enum e_token_types
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	PIPE,
-	REDIR_D,
-	DOBLE_REDIR_D,
-	REDIR_I,
-	HERE_DOC,
-	WORD,
-	D_QUOTE
-};
+	size_t	i;
 
-typedef struct s_token
-{
-	char *content;
-	int symbol;
-	struct s_token *next;
-}	t_token;
-
-typedef struct s_myshell
-{
-	char **environ;
-	char *path;
-	char *prompt;
-	t_token *tokens;
-}	t_myshell;
-
-#endif
+	i = 0;
+	while ((s1[i] && s1[i] == s2[i]) && i < n)
+	{
+		i++;
+	}
+	if (i == n)
+	{
+		return (0);
+	}
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}

@@ -1,42 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/22 16:07:55 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/25 11:13:28 by ecortes-         ###   ########.fr       */
+/*   Created: 2024/07/24 15:38:27 by ecortes-          #+#    #+#             */
+/*   Updated: 2024/07/24 15:38:43 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-#define STRUCTS_H
+#include "../../include/minishell.h"
 
-enum e_token_types
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	PIPE,
-	REDIR_D,
-	DOBLE_REDIR_D,
-	REDIR_I,
-	HERE_DOC,
-	WORD,
-	D_QUOTE
-};
+	char	*res;
+	size_t	i;
+	size_t	j;
 
-typedef struct s_token
-{
-	char *content;
-	int symbol;
-	struct s_token *next;
-}	t_token;
-
-typedef struct s_myshell
-{
-	char **environ;
-	char *path;
-	char *prompt;
-	t_token *tokens;
-}	t_myshell;
-
-#endif
+	i = 0;
+	j = 0;
+	res = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (res == NULL)
+		return (NULL);
+	while (s1[i])
+	{
+		res[i] = s1[i];
+		i++;
+	}
+	while (s2[j])
+	{
+		res[i] = s2[j];
+		i++;
+		j++;
+	}
+	res[i] = '\0';
+	return (res);
+}
