@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:18:48 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/28 21:54:36 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/07/28 23:11:59 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void tokens_and_quotes(char *prompt, t_myshell *tshell);
 void add_token_and_free(char *start_q, char *end_q, char *prompt, t_myshell *tshell);
 int token_type(char *str);
 int	count_quotes(const char *prompt);
+void update_last_token_symbol(t_myshell *tshell, int new_symbol);
 
 //----MAIN FUNCTIONS------------------------------------------------------
 void loop(t_myshell *tshell);

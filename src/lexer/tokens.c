@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 12:08:06 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/28 22:13:02 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/07/28 23:16:07 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void handle_quotes(char *prompt, int *i, char *quote_char, char **start_q, t_mys
 		if (*quote_char == prompt[*i])
 		{
 			add_token_and_free(*start_q, &prompt[*i], prompt, tshell);
+			update_last_token_symbol(tshell, token_type(quote_char));
 			*start_q = NULL;
 			*quote_char = '\0';
 		}

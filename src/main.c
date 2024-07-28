@@ -6,11 +6,44 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 20:38:20 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/28 21:34:43 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/07/28 23:03:48 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+const char *get_token_type_name(int symbol) {
+    switch (symbol) {
+        case PIPE:
+            return "PIPE";
+        case REDIR_D:
+            return "REDIR_D";
+        case DOBLE_REDIR_D:
+            return "DOBLE_REDIR_D";
+        case REDIR_I:
+            return "REDIR_I";
+        case HERE_DOC:
+            return "HERE_DOC";
+        case WORD:
+            return "WORD";
+        case D_QUOTE:
+            return "D_QUOTE";
+        default:
+            return "UNKNOWN";
+    }
+}
+
+// Función para imprimir la lista de tokens
+void print_tokens(t_myshell *tshell) {
+    t_token *current_token = tshell->tokens;
+
+    while (current_token) {
+        printf("Token: '%s', Type: %s\n", 
+               current_token->content,
+               get_token_type_name(current_token->symbol));
+        current_token = current_token->next;
+    }
+}
 
 int main(int argc, char **argv, char **environ)
 {
@@ -40,7 +73,7 @@ void loop(t_myshell *tshell)
 		if (count_quotes(tshell->prompt) == 0)
 			tokens_and_quotes(tshell->prompt, tshell);
 		// exec_things(tshell);
-		// print_tokens(tshell->tokens);
+			print_tokens(tshell);
 
 		free(tshell->prompt);
 	}

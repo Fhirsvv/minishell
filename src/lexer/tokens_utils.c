@@ -6,17 +6,34 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 21:23:00 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/28 21:39:55 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/07/28 23:15:28 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	count_quotes(const char *prompt)
+void update_last_token_symbol(t_myshell *tshell, int new_symbol)
 {
-	char	quote_char;
-	int		quotes;
-	int		i;
+	t_token *current;
+
+	current = tshell->tokens;
+	if (tshell == NULL || tshell->tokens == NULL)
+	{
+		printf("No tokens to update.\n");
+		return;
+	}
+	while (current->next != NULL)
+	{
+		current = current->next;
+	}
+	current->symbol = new_symbol;
+}
+
+int count_quotes(const char *prompt)
+{
+	char quote_char;
+	int quotes;
+	int i;
 
 	quote_char = '\0';
 	quotes = 0;
@@ -38,7 +55,7 @@ int	count_quotes(const char *prompt)
 		}
 		i++;
 	}
-	if(quotes % 2 == 0)
+	if (quotes % 2 == 0)
 		return (0);
 	printf("comillas mal\n");
 	return (1);
@@ -50,14 +67,14 @@ void add_token_and_free(char *start_q, char *end_q, char *prompt, t_myshell *tsh
 	{
 		char *buff = ft_substr(prompt, start_q - prompt, end_q - start_q);
 		ft_tokenadd_back(&tshell->tokens, ft_token_new(buff, token_type(buff)));
-		printf("%s\n", buff);
+		// printf("%s\n", buff);
 		free(buff);
 	}
 }
 
-int	token_type(char *str)
+int token_type(char *str)
 {
-	int	type;
+	int type;
 
 	type = 0;
 	if (strcmp(str, "|") == 0)
@@ -70,7 +87,7 @@ int	token_type(char *str)
 		type = REDIR_I;
 	else if (strcmp(str, "<<") == 0)
 		type = HERE_DOC;
-	else if (str[0] == '\"')
+	else if (str[0] == '"')
 		type = D_QUOTE;
 	else
 		type = WORD;
