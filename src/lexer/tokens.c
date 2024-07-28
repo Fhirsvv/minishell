@@ -6,44 +6,12 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 12:08:06 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/27 22:49:28 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/07/28 21:29:16 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int token_type(char *str)
-{
-	int type;
-
-	type = 0;
-	if (strcmp(str, "|") == 0)
-		type = PIPE;
-	else if (strcmp(str, ">") == 0)
-		type = REDIR_D;
-	else if (strcmp(str, ">>") == 0)
-		type = DOBLE_REDIR_D;
-	else if (strcmp(str, "<") == 0)
-		type = REDIR_I;
-	else if (strcmp(str, "<<") == 0)
-		type = HERE_DOC;
-	else if (str[0] == '\"')
-		type = D_QUOTE;
-	else
-		type = WORD;
-	return type;
-}
-
-static void add_token_and_free(char *start_q, char *end_q, char *prompt, t_myshell *tshell)
-{
-	if (start_q)
-	{
-		char *buff = ft_substr(prompt, start_q - prompt, end_q - start_q);
-		ft_tokenadd_back(&tshell->tokens, ft_token_new(buff, token_type(buff)));
-		printf("%s\n", buff);
-		free(buff);
-	}
-}
 void tokens_and_quotes(char *prompt, t_myshell *tshell)
 {
 	char *start_q;

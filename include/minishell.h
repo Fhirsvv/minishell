@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:18:48 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/24 15:38:54 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/07/28 21:28:54 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strjoin(char const *s1, char const *s2);
 
 //----TOKENS--------------------------------------------------------------
-void new_tokkenice(char *prompt, t_myshell *tshell);
 void tokens_and_quotes(char *prompt, t_myshell *tshell);
+void add_token_and_free(char *start_q, char *end_q, char *prompt, t_myshell *tshell);
 int token_type(char *str);
+int	count_quotes(const char *prompt);
 
 //----MAIN FUNCTIONS------------------------------------------------------
 void loop(t_myshell *tshell);

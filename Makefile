@@ -17,6 +17,7 @@ SRCS        :=      src/main.c \
                         src/no_libft/ft_strncmp.c \
                         src/no_libft/ft_strjoin.c \
                         src/lexer/tokens.c \
+                        src/lexer/tokens_utils.c \
                         src/path/path.c \
                         src/exec/exec.c \
                           
