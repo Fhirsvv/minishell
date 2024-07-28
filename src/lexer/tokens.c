@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 12:08:06 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/28 21:48:29 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/07/28 22:13:02 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,38 @@ void handle_pipe(char *prompt, int *i, char *quote_char, char **start_q, t_myshe
 			}
 			add_token_and_free(&prompt[*i], &prompt[*i + 1], prompt, tshell);
 		}
-		else if(!*start_q)
+		else if (!*start_q)
 			*start_q = &prompt[*i];
+	}
+}
+
+void handle_redirection(char *prompt, int *i, char **start_q, char quote_char, t_myshell *tshell)
+{
+	if (quote_char == '\0')
+	{
+		if (prompt[*i] == '<' || prompt[*i] == '>')
+		{
+			if ((prompt[*i] == '<' && prompt[*i + 1] == '<') ||
+				(prompt[*i] == '>' && prompt[*i + 1] == '>'))
+			{
+				if (*start_q)
+				{
+					add_token_and_free(*start_q, &prompt[*i], prompt, tshell);
+					*start_q = NULL;
+				}
+				add_token_and_free(&prompt[*i], &prompt[*i + 2], prompt, tshell);
+				*i += 1;
+			}
+			else
+			{
+				if (*start_q)
+				{
+					add_token_and_free(*start_q, &prompt[*i], prompt, tshell);
+					*start_q = NULL;
+				}
+				add_token_and_free(&prompt[*i], &prompt[*i + 1], prompt, tshell);
+			}
+		}
 	}
 }
 
@@ -73,8 +103,10 @@ void tokens_and_quotes(char *prompt, t_myshell *tshell)
 		handle_space(prompt, &i, &start_q, quote_char, tshell);
 		handle_quotes(prompt, &i, &quote_char, &start_q, tshell);
 		handle_pipe(prompt, &i, &quote_char, &start_q, tshell);
-		if (prompt[i] != ' ' && prompt[i] != '\'' && prompt[i] != '"' && prompt[i] != '|' && !start_q)
-				start_q = &prompt[i];
+		handle_redirection(prompt, &i, &start_q, quote_char, tshell);
+        if (prompt[i] != ' ' && prompt[i] != '\'' && prompt[i] != '"' && prompt[i] != '|' &&
+            prompt[i] != '<' && prompt[i] != '>' && !start_q)
+            start_q = &prompt[i];
 		i++;
 	}
 	if (start_q)
