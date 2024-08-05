@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:18:48 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/28 23:21:43 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/05 15:23:04 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ void exec_things(t_myshell *tshell);
 
 //----EXPANDER FUNCTIONS--------------------------------------------------
 void expander_main(t_myshell *tshell);
+char *replace_substr(char *prompt, char *old_str, char *new_str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:38:27 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/24 15:38:43 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/05 15:28:46 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	i = 0;
 	j = 0;
+	if(!s1)
+		return (ft_strdup(s2));
 	res = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (res == NULL)
 		return (NULL);

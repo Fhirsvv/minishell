@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 17:47:51 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/22 18:35:37 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/05 13:44:56 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ size_t	ft_strlen(const char *str)
 	size_t	i;
 
 	i = 0;
-	while (str[i])
-	{
+	if(!str)
+		return (0);
+	while(str[i])
 		i++;
-	}
 	return (i);
 }

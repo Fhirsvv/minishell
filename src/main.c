@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 20:38:20 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/04 13:23:13 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/05 22:58:06 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void loop(t_myshell *tshell)
 			print_tokens(tshell);
 
 		free(tshell->prompt);
+		//TAMBIEN DEBERIA BORRAR LOS TOKENS CREO
 	}
 }
 
