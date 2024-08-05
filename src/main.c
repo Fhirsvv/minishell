@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 20:38:20 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/28 23:03:48 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/04 13:23:13 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void print_tokens(t_myshell *tshell) {
     t_token *current_token = tshell->tokens;
 
     while (current_token) {
-        printf("Token: '%s', Type: %s\n", 
+        printf("Token: %s, Type: %s\n", 
                current_token->content,
                get_token_type_name(current_token->symbol));
         current_token = current_token->next;
@@ -72,7 +72,7 @@ void loop(t_myshell *tshell)
 			add_history(tshell->prompt);*/
 		if (count_quotes(tshell->prompt) == 0)
 			tokens_and_quotes(tshell->prompt, tshell);
-		// exec_things(tshell);
+		expander_main(tshell);
 			print_tokens(tshell);
 
 		free(tshell->prompt);

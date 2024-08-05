@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 21:23:00 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/28 23:15:28 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/05 13:25:03 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ void update_last_token_symbol(t_myshell *tshell, int new_symbol)
 		return;
 	}
 	while (current->next != NULL)
-	{
 		current = current->next;
-	}
 	current->symbol = new_symbol;
 }
 
@@ -89,6 +87,8 @@ int token_type(char *str)
 		type = HERE_DOC;
 	else if (str[0] == '"')
 		type = D_QUOTE;
+	else if(str[0] == '\'')
+		type = S_QUOTE;
 	else
 		type = WORD;
 	return type;

@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 16:07:55 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/25 11:13:28 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/05 13:25:23 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ enum e_token_types
 	REDIR_I,
 	HERE_DOC,
 	WORD,
-	D_QUOTE
+	D_QUOTE,
+	S_QUOTE
 };
 
 typedef struct s_token

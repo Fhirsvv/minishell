@@ -20,6 +20,7 @@ SRCS        :=      src/main.c \
                         src/lexer/tokens_utils.c \
                         src/path/path.c \
                         src/exec/exec.c \
+                        src/expander/expander.c \
                           
 OBJS        := $(SRCS:.c=.o)
 

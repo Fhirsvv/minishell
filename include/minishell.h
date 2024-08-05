@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:18:48 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/28 23:11:59 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/07/28 23:21:43 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,8 @@ char *get_path(t_myshell *tshell);
 
 //----EXEC FUNCTIONS------------------------------------------------------
 void exec_things(t_myshell *tshell);
+
+//----EXPANDER FUNCTIONS--------------------------------------------------
+void expander_main(t_myshell *tshell);
+
 #endif
