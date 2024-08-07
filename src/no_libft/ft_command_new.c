@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tokenadd_back.c                                 :+:      :+:    :+:   */
+/*   ft_command_new.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/19 19:38:46 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/07 17:07:59 by ecortes-         ###   ########.fr       */
+/*   Created: 2024/08/07 17:02:21 by ecortes-          #+#    #+#             */
+/*   Updated: 2024/08/07 17:10:43 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_tokenadd_back(t_token **lst, t_token *new)
+t_command	*ft_command_new(char **args, char *c_path)
 {
-	t_token	*node;
+	t_command	*new;
 
-	if(new == NULL)
+	new = malloc(sizeof(t_command));
+	if (new == NULL)
 	{
-		printf("new vacio\n");
-		return;
+		free(new);
+		return (NULL);
 	}
-	if (*lst == NULL)
-		*lst = new;
-	else
-	{
-		node = *lst;
-		while (node->next)
-		{
-			node = node->next;
-		}
-		node->next = new;
-	}
+	new->args = ft_array_duplicate(args);
+	new->comand_path = c_path;
+	new->next = NULL;
+
+	//printf("nuevo token:\n%s\n%d\n", new->content, new->symbol);
+	return (new);
 }

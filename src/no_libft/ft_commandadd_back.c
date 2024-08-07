@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tokenadd_back.c                                 :+:      :+:    :+:   */
+/*   ft_commandadd_back.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/19 19:38:46 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/07 17:07:59 by ecortes-         ###   ########.fr       */
+/*   Created: 2024/08/07 17:11:33 by ecortes-          #+#    #+#             */
+/*   Updated: 2024/08/07 17:12:12 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_tokenadd_back(t_token **lst, t_token *new)
+void	ft_commandadd_back(t_command **lst, t_command *new)
 {
-	t_token	*node;
+	t_command	*node;
 
 	if(new == NULL)
 	{

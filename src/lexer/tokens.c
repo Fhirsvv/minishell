@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 12:08:06 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/28 23:16:07 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:14:29 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,6 @@ void tokens_and_quotes(char *prompt, t_myshell *tshell)
             start_q = &prompt[i];
 		i++;
 	}
-	if (start_q)
+	if(start_q)
 		add_token_and_free(start_q, &prompt[i], prompt, tshell);
 }

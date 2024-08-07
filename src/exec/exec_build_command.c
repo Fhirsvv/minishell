@@ -1,35 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tokenadd_back.c                                 :+:      :+:    :+:   */
+/*   exec_build_command.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/19 19:38:46 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/07 17:07:59 by ecortes-         ###   ########.fr       */
+/*   Created: 2024/08/06 13:56:03 by ecortes-          #+#    #+#             */
+/*   Updated: 2024/08/07 17:06:30 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_tokenadd_back(t_token **lst, t_token *new)
+void parse_symbols_for_convenience(t_myshell *tshell)
 {
-	t_token	*node;
+	t_token *aux;
 
-	if(new == NULL)
+	aux = tshell->tokens;
+	while(aux)
 	{
-		printf("new vacio\n");
-		return;
+		if(aux->symbol == D_QUOTE || aux->symbol == S_QUOTE)
+			aux->symbol = WORD;
+		aux = aux->next;
 	}
-	if (*lst == NULL)
-		*lst = new;
-	else
+}
+
+void exec_build_comands(t_myshell *tshell)
+{
+	t_token *aux;
+
+	parse_symbols_for_convenience(tshell);
+	aux = tshell->tokens;
+	while(aux)
 	{
-		node = *lst;
-		while (node->next)
-		{
-			node = node->next;
-		}
-		node->next = new;
+		while(aux->symbol == WORD)
+			aux = aux->next;
+		
 	}
+	
 }

@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 18:24:33 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/24 15:37:35 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:21:10 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ char *get_path(t_myshell *tshell)
 		}
 		i++;
 	}
-	perror("no hay path en getpath\n");
 	return (NULL);
 }
 

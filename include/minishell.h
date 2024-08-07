@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:18:48 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/05 15:23:04 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:12:27 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@
 #include <unistd.h>
 #include <stdbool.h>
 
+#define SUCCESS 0
+#define ERROR_GENERIC -1
+#define ERROR_MEMORY -2
+#define ERROR_INVALID_PARAMETER -3
+
 //----LIBFT/MODIFICATED  LIBFT FUNCTIONS----------------------------------
 void	*ft_calloc(size_t num, size_t size);
 t_token	*ft_token_new(char *str, int type);
@@ -37,6 +42,9 @@ char	**ft_array_duplicate(char **arr);
 char	*ft_strtrim(char const *s1, char const *set);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strjoin(char const *s1, char const *s2);
+t_command	*ft_command_new(char **args, char *c_path);
+void	ft_commandadd_back(t_command **lst, t_command *new);
+
 
 //----TOKENS--------------------------------------------------------------
 void tokens_and_quotes(char *prompt, t_myshell *tshell);
@@ -45,10 +53,10 @@ int token_type(char *str);
 int	count_quotes(const char *prompt);
 void update_last_token_symbol(t_myshell *tshell, int new_symbol);
 
+
 //----MAIN FUNCTIONS------------------------------------------------------
 void loop(t_myshell *tshell);
-void init_tshell(t_myshell *myshell, char **environ);
-void free_myshell(t_myshell *tshell);
+
 
 //----PATH FUNCTIONS-------------------------------------------------------
 char *get_cmd_path(char *path, char *cmd);
@@ -56,10 +64,20 @@ char *get_path(t_myshell *tshell);
 
 
 //----EXEC FUNCTIONS------------------------------------------------------
-void exec_things(t_myshell *tshell);
+int exec_main(t_myshell *tshell);
+
 
 //----EXPANDER FUNCTIONS--------------------------------------------------
-void expander_main(t_myshell *tshell);
+int expander_main(t_myshell *tshell);
 char *replace_substr(char *prompt, char *old_str, char *new_str);
+
+
+//----UTILS FUNCTIONS------------------------------------------------------
+int init_tshell(t_myshell *myshell, char **environ);
+void free_myshell(t_myshell *tshell);
+const char *get_token_type_name(int symbol);
+void print_tokens(t_myshell *tshell);
+void free_loop(t_myshell *tshell);
+
 
 #endif

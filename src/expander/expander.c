@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 23:19:58 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/05 23:03:48 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:07:18 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ char *replace_substr(char *prompt, char *old_str, char *new_str)
 		if(!aux || !aux2)
 			return (NULL);
 		free(aux);
-		aux = ft_strjoin(aux2, &prompt[i + ft_strlen(old_str) + 1]);
+		if(&prompt[i + ft_strlen(old_str)])
+			aux = ft_strjoin(aux2, &prompt[i + ft_strlen(old_str)]);
 		free(aux2);
 	}
 	else
@@ -60,13 +61,13 @@ int get_char_to_expand(char *post_dollar, char *in_path, t_token *token)
 	aux = NULL;
 	aux = ft_strtrim(in_path, ft_strjoin(post_dollar, "="));
 	if (!aux)
-		return (0);
+		return (ERROR_MEMORY);
 	aux_content = token->content;
 	token->content = replace_substr(token->content, ft_strjoin("$", post_dollar), aux);
 	free(aux_content);
 	if(!token->content)
-		return (0);
-	return 1;
+		return (ERROR_GENERIC);
+	return (SUCCESS);
 }
 
 /// @brief GET THE VAR NAME AFTER DE $ IN THE PROMPT
@@ -97,7 +98,7 @@ int get_part_expand(t_token *token, t_myshell *tshell)
 
 /// @brief MAIN FUNCTION TO EXPAND THE PROMPTS
 /// @param tshell GENERAL STRUCT
-void expander_main(t_myshell *tshell)
+int expander_main(t_myshell *tshell)
 {
 	int error;
 	t_token *aux;
@@ -108,9 +109,10 @@ void expander_main(t_myshell *tshell)
 		if ((aux->symbol == D_QUOTE || aux->symbol == WORD) && ft_strchr(aux->content, '$'))
 		{
 			error = get_part_expand(aux, tshell);
-			if (error != 1) // diferente maenjo de errores segun lo que devuelva
-				printf("error en expandern\n");
+			if (error != SUCCESS) // diferente maenjo de errores segun lo que devuelva
+				return(ERROR_GENERIC);
 		}
 		aux = aux->next;
 	}
+	return(SUCCESS);
 }

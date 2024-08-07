@@ -6,16 +6,16 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:26:18 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/24 18:44:26 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:08:55 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void real_exec(char *path, char **argv, char **environ)
+static int real_exec(char *path, char **argv, char **environ)
 {
     execve(path, argv, environ);
-    printf("no tiene ruta\n");
+    return(ERROR_INVALID_PARAMETER);
 }
 
 static void ft_exec(char *path, char **environ, t_token *token)
@@ -71,7 +71,7 @@ static void ft_exec(char *path, char **environ, t_token *token)
     free(arr);
 }
 
-void exec_things(t_myshell *tshell)
+int exec_main(t_myshell *tshell)
 {
     t_token *buff;
     char *path;
@@ -84,7 +84,7 @@ void exec_things(t_myshell *tshell)
         if (path == NULL)
         {
             fprintf(stderr, "Error: no se pudo obtener el path\n");
-            return;
+            return ERROR_GENERIC;
         }
 
         path_aux = get_cmd_path(path, buff->content);
@@ -92,7 +92,7 @@ void exec_things(t_myshell *tshell)
         {
             free(path);
             fprintf(stderr, "Error: path_aux es nulo\n");
-            return;
+            return ERROR_GENERIC;
         }
 
         ft_exec(path_aux, tshell->environ, buff);
@@ -102,4 +102,5 @@ void exec_things(t_myshell *tshell)
         free(path);
         free(path_aux);
     }
+    return (SUCCESS);
 }

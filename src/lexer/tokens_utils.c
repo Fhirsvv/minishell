@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 21:23:00 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/05 13:25:03 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:07:27 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ int count_quotes(const char *prompt)
 		i++;
 	}
 	if (quotes % 2 == 0)
-		return (0);
+		return (SUCCESS);
 	printf("comillas mal\n");
-	return (1);
+	return (ERROR_GENERIC);
 }
 
 void add_token_and_free(char *start_q, char *end_q, char *prompt, t_myshell *tshell)

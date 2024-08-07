@@ -16,11 +16,15 @@ SRCS        :=      src/main.c \
                         src/no_libft/ft_strtrim.c \
                         src/no_libft/ft_strncmp.c \
                         src/no_libft/ft_strjoin.c \
+                        src/no_libft/ft_command_new.c \
+                        src/no_libft/ft_commandadd_back.c \
                         src/lexer/tokens.c \
                         src/lexer/tokens_utils.c \
                         src/path/path.c \
                         src/exec/exec.c \
+                        src/exec/exec_build_command.c \
                         src/expander/expander.c \
+                        src/utils/utils_main.c \
                           
 OBJS        := $(SRCS:.c=.o)
 
