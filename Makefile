@@ -23,6 +23,7 @@ SRCS        :=      src/main.c \
                         src/path/path.c \
                         src/exec/exec.c \
                         src/exec/exec_build_command.c \
+                        src/exec/exec_commands_utils.c \
                         src/expander/expander.c \
                         src/utils/utils_main.c \
                           

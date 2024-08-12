@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:18:48 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/07 17:12:27 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/12 20:09:49 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char	*ft_strdup(const char *s1);
 size_t	ft_strlen(const char *str);
 char	*ft_strchr(const char *s, int c);
 char	**ft_array_duplicate(char **arr);
+void	free_arr(char **split_arr);
 char	*ft_strtrim(char const *s1, char const *set);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strjoin(char const *s1, char const *s2);
@@ -65,6 +66,11 @@ char *get_path(t_myshell *tshell);
 
 //----EXEC FUNCTIONS------------------------------------------------------
 int exec_main(t_myshell *tshell);
+int build_comands_main(t_myshell *tshell);
+char **add_to_matrix(char **arr, char *new);
+int args_size(t_token *token);
+int new_command_symbols(t_myshell *tshell, t_token *aux);
+int new_command(t_myshell *tshell, t_token *aux);;
 
 
 //----EXPANDER FUNCTIONS--------------------------------------------------

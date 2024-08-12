@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 23:58:48 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/07/23 00:02:04 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:34:49 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	**ft_array_duplicate(char **arr)
 	size_t	i;
 
 	i = 0;
-	while (arr[i] != NULL)
+	while (arr[i])
 		i++;
 	aux = ft_calloc(sizeof(char *), i + 1);
 	if (!aux)

@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_command_new.c                                   :+:      :+:    :+:   */
+/*   exec_commands_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/07 17:02:21 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/12 18:06:51 by ecortes-         ###   ########.fr       */
+/*   Created: 2024/08/12 17:44:22 by ecortes-          #+#    #+#             */
+/*   Updated: 2024/08/12 19:01:48 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_command	*ft_command_new(char **args, char *c_path)
+int args_size(t_token *token)
 {
-	t_command	*new;
+	t_token *aux;
+	int count;
 
-	new = malloc(sizeof(t_command));
-	if (new == NULL)
+	count = 0;
+	aux = token;
+	while(aux->symbol == WORD || aux->symbol == D_QUOTE ||
+			aux->symbol == S_QUOTE)
 	{
-		free(new);
-		return (NULL);
+		count++;
+		aux = aux->next;
 	}
-	new->args = ft_array_duplicate(args);
-	new->comand_path = c_path;
-	new->next = NULL;
-
-	//printf("nuevo token:\n%s\n%d\n", new->content, new->symbol);
-	return (new);
+	return (count);
 }

@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 12:33:10 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/07 17:08:23 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/12 19:51:41 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int init_tshell(t_myshell *myshell, char **environ)
 	myshell->environ = ft_array_duplicate(environ);
 	myshell->prompt = NULL;
 	myshell->path = get_path(myshell);
+	myshell->comands = NULL;
 	return(SUCCESS);
 }
 
@@ -71,9 +72,37 @@ void print_tokens(t_myshell *tshell)
 	}
 }
 
+void print_args(t_myshell *tshell)
+{
+    t_command *aux;
+    int i;
+    
+    aux = tshell->comands;
+	while(aux)
+	{
+		i++;
+		aux = aux->next;
+	}
+	printf("HAY %d comandos\n", i);
+	aux = tshell->comands;
+    while (aux)
+    {
+        i = 0;
+        while (aux->args && aux->args[i])
+        {
+            printf("->%s\n", aux->args[i]);
+            i++;
+        }
+        printf("----------------\n");  // Añadir separador entre comandos
+        aux = aux->next;
+    }
+}
+
+
 void free_loop(t_myshell *tshell)
 {
 	t_token *next;
+	t_command *aux;
 
 	while (tshell->tokens)
 	{
@@ -83,4 +112,13 @@ void free_loop(t_myshell *tshell)
 		tshell->tokens = next;
 	}
 	tshell->tokens = NULL;
+	while(tshell->comands)
+	{
+		aux = tshell->comands->next;
+		free_arr(tshell->comands->args);
+		//free(tshell->comands->comand_path);
+		free(tshell->comands);
+		tshell->comands = aux;
+	}
+	tshell->comands = NULL;
 }
