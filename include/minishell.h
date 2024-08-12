@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:18:48 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/12 20:09:49 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/12 20:35:03 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int build_comands_main(t_myshell *tshell);
 char **add_to_matrix(char **arr, char *new);
 int args_size(t_token *token);
 int new_command_symbols(t_myshell *tshell, t_token *aux);
-int new_command(t_myshell *tshell, t_token *aux);;
+t_token *new_command(t_myshell *tshell, t_token *aux);;
 
 
 //----EXPANDER FUNCTIONS--------------------------------------------------

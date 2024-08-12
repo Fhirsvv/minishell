@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 12:33:10 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/12 19:51:41 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/12 20:40:08 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void print_args(t_myshell *tshell)
     t_command *aux;
     int i;
     
+	i = 0;
     aux = tshell->comands;
 	while(aux)
 	{

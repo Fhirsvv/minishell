@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:56:03 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/12 20:14:00 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/12 20:41:14 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,13 @@ int build_comands_main(t_myshell *tshell)
 	{
 		if(aux->symbol == WORD || aux->symbol == D_QUOTE || aux->symbol == S_QUOTE)
 		{
-			t_token *aa = aux;
-			error = new_command(tshell, aux); //aux no se actualiza dentro de new_command
-			if(aa == aux)
-				printf("mismo token aaaaaaaaaaaaaaaaaaaaaa\n");
-			if(error != SUCCESS)
-				return (error);
+			aux = new_command(tshell, aux);
+			if(!aux)
+				return(ERROR_MEMORY);
 		}
-		else
+		if(!(aux->symbol == WORD || aux->symbol == D_QUOTE || aux->symbol == S_QUOTE))
 		{
+			printf("en el else\n");
 			error = new_command_symbols(tshell, aux);
 			if(error != SUCCESS)
 				return (error);
@@ -55,7 +53,7 @@ int new_command_symbols(t_myshell *tshell, t_token *aux)
 	return(SUCCESS);
 }
 
-int new_command(t_myshell *tshell, t_token *aux)
+t_token *new_command(t_myshell *tshell, t_token *aux)
 {
 	char **arr;
 	char **buff;
@@ -70,7 +68,7 @@ int new_command(t_myshell *tshell, t_token *aux)
 		if(!arr)
 		{
 			free_arr(buff);
-			return (ERROR_MEMORY);
+			return (NULL);
 		}
 		free(buff);
 		buff = arr;
@@ -82,7 +80,7 @@ int new_command(t_myshell *tshell, t_token *aux)
 		ft_commandadd_back(&tshell->comands, new);
 		free_arr(arr);
 	}
-	return (SUCCESS);
+	return (aux);
 }
 
 char **add_to_matrix(char **arr, char *new)
