@@ -6,11 +6,23 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 23:19:58 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/07 17:07:18 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/16 15:14:42 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+char *substr_part_expand(char *auxstr)
+{
+	int i;
+
+	i = 0;
+	if(!auxstr)
+		return (NULL);
+	while(auxstr[i] && auxstr[i] != ' ' && auxstr[i] != '\n' && auxstr[i] != '	' )
+		i++;
+	return(ft_substr(auxstr, 1, i - 1));
+}
 
 /// @brief SUBSITITUTE THE VAR CONTENT IN TOKENS->D_QUOTE
 /// @param prompt ORIGINAL PROMPT
@@ -59,7 +71,7 @@ int get_char_to_expand(char *post_dollar, char *in_path, t_token *token)
 	if (!in_path)
 		return (2);
 	aux = NULL;
-	aux = ft_strtrim(in_path, ft_strjoin(post_dollar, "="));
+	aux = ft_semi_strtrim(in_path, ft_strjoin(post_dollar, "=")); //aqui cambaiir el trim creo
 	if (!aux)
 		return (ERROR_MEMORY);
 	aux_content = token->content;
@@ -67,6 +79,7 @@ int get_char_to_expand(char *post_dollar, char *in_path, t_token *token)
 	free(aux_content);
 	if(!token->content)
 		return (ERROR_GENERIC);
+	free(post_dollar);
 	return (SUCCESS);
 }
 
@@ -82,11 +95,11 @@ int get_part_expand(t_token *token, t_myshell *tshell)
 	i = 0;
 	aux2 = NULL;
 	auxstr = ft_strchr(token->content, '$');
-	auxstr++;
+	auxstr = substr_part_expand(auxstr);
 	i = 0;
 	while (tshell->environ[i])
 	{
-		if (ft_strncmp(auxstr, tshell->environ[i], ft_strlen(auxstr)) == 0)
+		if (ft_strncmp(ft_strjoin(auxstr, "="), tshell->environ[i], ft_strlen(auxstr) + 1) == 0)
 		{
 			aux2 = tshell->environ[i];
 			break;
@@ -106,7 +119,7 @@ int expander_main(t_myshell *tshell)
 	aux = tshell->tokens;
 	while (aux)
 	{
-		if ((aux->symbol == D_QUOTE || aux->symbol == WORD) && ft_strchr(aux->content, '$'))
+		if ((aux->symbol == D_QUOTE || aux->symbol == WORD) && ft_strchr(aux->content, '$') && ft_strcmp(aux->content, "$") != 0)
 		{
 			error = get_part_expand(aux, tshell);
 			if (error != SUCCESS) // diferente maenjo de errores segun lo que devuelva

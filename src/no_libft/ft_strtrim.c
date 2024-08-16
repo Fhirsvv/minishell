@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:24:11 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/04 11:54:34 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/15 15:40:11 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,31 @@ char	*ft_strtrim(char const *s1, char const *set)
 	if (!res)
 		return (NULL);
 	while (start < end)
+	{
+		res[i] = s1[start];
+		i++;
+		start++;
+	}
+	res[i] = '\0';
+	return (res);
+}
+
+char	*ft_semi_strtrim(char const *s1, char const *set)
+{
+	char	*res;
+	size_t	i;
+	size_t	start;
+	size_t len;
+
+	len = ft_strlen(s1);
+	start = 0;
+	i = 0;
+	while (s1[start] && ft_set_in_s(s1[start], set))
+		start++;
+	res = (char *)malloc(len - start + 1);
+	if (!res)
+		return (NULL);
+	while (start < len)
 	{
 		res[i] = s1[start];
 		i++;

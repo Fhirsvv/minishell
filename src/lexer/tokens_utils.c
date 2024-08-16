@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 21:23:00 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/07 17:07:27 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/15 15:13:31 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,3 +93,43 @@ int token_type(char *str)
 		type = WORD;
 	return type;
 }
+
+void split_various_dolar(t_myshell *tshell)
+{
+    t_token *aux;
+    t_token *new;
+    t_token *next;
+    char **arr;
+    int i;
+
+    aux = tshell->tokens;
+    while(aux)
+    {
+        // Store the next node before making any changes to the current node
+        next = aux->next;
+        
+        if((aux->symbol == WORD || aux->symbol == D_QUOTE) && how_many_finds(aux->content, '$') > 1)
+        {
+            arr = ft_split(aux->content, '$');
+            if(!arr)
+                return;
+
+            new = ft_token_new(ft_strjoin("$",arr[0]), WORD);
+            ft_tokensubstitute(&tshell->tokens, new, aux);
+            printf("After tokensubstitute\n");
+
+            // Add subsequent tokens after the newly substituted node
+            i = 1;
+            while(arr[i])
+            {
+                ft_tokenadd_after(&tshell->tokens, ft_token_new(ft_strjoin("$",arr[i]), WORD), new);
+                new = new->next; // Move new to the last added token to continue chaining
+                i++;
+            }
+        }
+        
+        // Move to the next node
+        aux = next;
+    }
+}
+

@@ -18,6 +18,8 @@ SRCS        :=      src/main.c \
                         src/no_libft/ft_strjoin.c \
                         src/no_libft/ft_command_new.c \
                         src/no_libft/ft_commandadd_back.c \
+                        src/no_libft/ft_tokenadd_after.c \
+                        src/no_libft/ft_tokensubstitute.c \
                         src/lexer/tokens.c \
                         src/lexer/tokens_utils.c \
                         src/path/path.c \

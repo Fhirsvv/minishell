@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 12:08:06 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/06 13:14:29 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/14 20:25:45 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void tokens_and_quotes(char *prompt, t_myshell *tshell)
 		handle_quotes(prompt, &i, &quote_char, &start_q, tshell);
 		handle_pipe(prompt, &i, &quote_char, &start_q, tshell);
 		handle_redirection(prompt, &i, &start_q, quote_char, tshell);
+		//todo: otra funcion para que separe strings por $ eg $USER$PATH
         if (prompt[i] != ' ' && prompt[i] != '\'' && prompt[i] != '"' && prompt[i] != '|' &&
             prompt[i] != '<' && prompt[i] != '>' && !start_q)
             start_q = &prompt[i];
@@ -112,4 +113,5 @@ void tokens_and_quotes(char *prompt, t_myshell *tshell)
 	}
 	if(start_q)
 		add_token_and_free(start_q, &prompt[i], prompt, tshell);
+	split_various_dolar(tshell);
 }

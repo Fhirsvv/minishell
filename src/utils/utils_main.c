@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 12:33:10 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/12 20:40:08 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/15 15:35:19 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ void free_loop(t_myshell *tshell)
 	t_token *next;
 	t_command *aux;
 
+	if(tshell->prompt)
+		free(tshell->prompt);
 	while (tshell->tokens)
 	{
 		next = tshell->tokens->next;
@@ -122,4 +124,23 @@ void free_loop(t_myshell *tshell)
 		tshell->comands = aux;
 	}
 	tshell->comands = NULL;
+}
+
+int how_many_finds(char *str, int c)
+{
+	char *aux;
+	int count;
+
+	count = 0;
+	aux = str;
+	while(1)
+	{
+		aux = ft_strchr(aux, c);
+		if(!aux)
+			return (count);
+		aux++;
+		count++;
+		printf("how many finds\n");
+	}
+	return (count);
 }

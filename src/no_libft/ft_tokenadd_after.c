@@ -1,41 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_tokenadd_after.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/24 15:35:53 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/15 15:17:58 by ecortes-         ###   ########.fr       */
+/*   Created: 2024/08/14 20:09:33 by ecortes-          #+#    #+#             */
+/*   Updated: 2024/08/14 20:44:24 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void ft_tokenadd_after(t_token **lst, t_token *new, t_token *wh)
 {
-	size_t	i;
+	t_token *node;
+	t_token *aux;
 
-	i = 0;
-	while ((s1[i] && s1[i] == s2[i]) && i < n)
-	{
-		i++;
-	}
-	if (i == n)
-	{
-		return (0);
-	}
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-}
+	if (new == NULL || lst == NULL || wh == NULL)
+		return;
 
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	size_t	i;
-
-	i = 0;
-	while ((s1[i] && s1[i] == s2[i]))
+	node = *lst;
+	while (node != NULL)
 	{
-		i++;
+		if (node == wh)
+		{
+			aux = node->next;
+			node->next = new;
+			new->next = aux;
+			return;
+		}
+		node = node->next;
 	}
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
