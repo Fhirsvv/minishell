@@ -6,11 +6,13 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:26:18 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/07 17:08:55 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/16 18:03:48 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+//todo: rehacer todo el exec ppara funcionar con s_commands xd
 
 static int real_exec(char *path, char **argv, char **environ)
 {

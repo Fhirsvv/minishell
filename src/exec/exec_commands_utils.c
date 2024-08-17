@@ -6,16 +6,16 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 17:44:22 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/12 19:01:48 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/16 18:10:37 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int args_size(t_token *token)
+int	args_size(t_token *token)
 {
-	t_token *aux;
-	int count;
+	t_token	*aux;
+	int		count;
 
 	count = 0;
 	aux = token;

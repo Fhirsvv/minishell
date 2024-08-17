@@ -6,16 +6,17 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:56:03 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/12 20:41:14 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/17 11:50:16 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+static char	**copy_and_add(char **arr, char **aux, char *new);
 
-int build_comands_main(t_myshell *tshell)
+int	build_comands_main(t_myshell *tshell)
 {
-	int error;
-	t_token *aux;
+	int		error;
+	t_token	*aux;
 	
 	aux = tshell->tokens;
 	while(aux)
@@ -38,10 +39,10 @@ int build_comands_main(t_myshell *tshell)
 	return(SUCCESS);    
 }
 
-int new_command_symbols(t_myshell *tshell, t_token *aux)
+int	new_command_symbols(t_myshell *tshell, t_token *aux)
 {
-	t_command *new;
-	char **arr;
+	t_command	*new;
+	char		**arr;
 
 	arr = NULL;
 	arr = add_to_matrix(arr, aux->content);
@@ -53,11 +54,10 @@ int new_command_symbols(t_myshell *tshell, t_token *aux)
 	return(SUCCESS);
 }
 
-t_token *new_command(t_myshell *tshell, t_token *aux)
+t_token	*new_command(t_myshell *tshell, t_token *aux)
 {
-	char **arr;
-	char **buff;
-	t_command *new;
+	char		**arr;
+	char		**buff;
 
 	arr = NULL;
 	buff = NULL;
@@ -76,17 +76,17 @@ t_token *new_command(t_myshell *tshell, t_token *aux)
 	}
 	if(arr)
 	{
-		new = ft_command_new(arr, get_cmd_path(tshell->path, arr[0]));
-		ft_commandadd_back(&tshell->comands, new);
+		ft_commandadd_back(&tshell->comands,
+			ft_command_new(arr, get_cmd_path(tshell->path, arr[0])));
 		free_arr(arr);
 	}
 	return (aux);
 }
 
-char **add_to_matrix(char **arr, char *new)
+char	**add_to_matrix(char **arr, char *new)
 {
-	char **aux;
-	size_t i;
+	char	**aux;
+	size_t	i;
 
 	i = 0;
 	if(!arr)
@@ -100,6 +100,13 @@ char **add_to_matrix(char **arr, char *new)
 	aux = ft_calloc(i + 2, sizeof(char *));
 	if (!aux)
 		return (NULL);
+	return (copy_and_add(arr, aux, new));
+}
+
+static char	**copy_and_add(char **arr, char **aux, char *new)
+{
+	int	i;
+	
 	i = 0;
 	while (arr[i])
 	{

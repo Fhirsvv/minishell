@@ -6,15 +6,15 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 23:19:58 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/16 15:14:42 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/16 18:11:32 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char *substr_part_expand(char *auxstr)
+char	*substr_part_expand(char *auxstr)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if(!auxstr)
@@ -29,11 +29,11 @@ char *substr_part_expand(char *auxstr)
 /// @param old_str WHAT WE WANT TO CHANGE
 /// @param new_str WHAT WE ARE GOING TO CHANGE OLD_STR
 /// @return THE PROMPT CHANGED
-char *replace_substr(char *prompt, char *old_str, char *new_str)
+char	*replace_substr(char *prompt, char *old_str, char *new_str)
 {
-	int i;
-	char *aux;
-	char *aux2;
+	int		i;
+	char	*aux;
+	char	*aux2;
 
 	i = 0;
 	aux = NULL;
@@ -63,10 +63,10 @@ char *replace_substr(char *prompt, char *old_str, char *new_str)
 /// @param in_path PART OF THE ENVIRON WHERE POST_DOLLAR IS FOUND
 /// @param token CURRENT TOKEN WE ARE WORKING WITH
 /// @param tshell GENERAL STRUCT
-int get_char_to_expand(char *post_dollar, char *in_path, t_token *token)
+int	get_char_to_expand(char *post_dollar, char *in_path, t_token *token)
 {
-	char *aux;
-	char *aux_content;
+	char	*aux;
+	char	*aux_content;
 
 	if (!in_path)
 		return (2);
@@ -86,11 +86,11 @@ int get_char_to_expand(char *post_dollar, char *in_path, t_token *token)
 /// @brief GET THE VAR NAME AFTER DE $ IN THE PROMPT
 /// @param token TOKEN WICH IS MARKED AS D_QUOTE
 /// @param tshell GENERAL STRUCT
-int get_part_expand(t_token *token, t_myshell *tshell)
+int	get_part_expand(t_token *token, t_myshell *tshell)
 {
-	char *auxstr;
-	char *aux2;
-	int i;
+	char	*auxstr;
+	char	*aux2;
+	int		i;
 
 	i = 0;
 	aux2 = NULL;
@@ -111,10 +111,10 @@ int get_part_expand(t_token *token, t_myshell *tshell)
 
 /// @brief MAIN FUNCTION TO EXPAND THE PROMPTS
 /// @param tshell GENERAL STRUCT
-int expander_main(t_myshell *tshell)
+int	expander_main(t_myshell *tshell)
 {
-	int error;
-	t_token *aux;
+	int		error;
+	t_token	*aux;
 
 	aux = tshell->tokens;
 	while (aux)
