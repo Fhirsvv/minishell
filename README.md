@@ -1,11 +1,11 @@
 # MINISHELL
 ns a probar cositas de la mini hasta que salga
 # COSITAS QUE TIENE QUE HACER
--ENTRADA FUNCIONAL: ✔️
--HISTORIAL FUNCIONAL: ✔️
--EJECUTAR COSAS: ❌
--SOLO UN AVARIABLE BLOBAL PARA SEÑALES: ❌
--NO INTERPRETAR COMILLAS SIN CERRRAR
+- ENTRADA FUNCIONAL: ✔️
+- HISTORIAL FUNCIONAL: ✔️
+- EJECUTAR COSAS: ❌
+- SOLO UN AVARIABLE BLOBAL PARA SEÑALES: ❌
+- NO INTERPRETAR COMILLAS SIN CERRRAR
 	- 'evite que el shell interprete los caracteres en la secuencia entrecomillada: ✔️
 	- "evite que el shell interprete los caracteres en la secuencia entrecomillada exceptuando $: ✔️
 - REDIRECCIONES
