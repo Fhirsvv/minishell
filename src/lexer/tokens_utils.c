@@ -6,11 +6,14 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 21:23:00 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/17 11:39:11 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/28 12:24:06 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+void	ft_add_after(t_myshell *tshell, char **arr, t_token *new, int *i);
+
+
 
 void	update_last_token_symbol(t_myshell *tshell, int new_symbol)
 {
@@ -107,12 +110,7 @@ void split_various_dolar(t_myshell *tshell)
 			new = ft_token_new(ft_strjoin("$", arr[0]), WORD);
 			ft_tokensubstitute(&tshell->tokens, new, aux);
 			i = 1;
-			while (arr[i])
-			{
-				ft_tokenadd_after(&tshell->tokens, ft_token_new(ft_strjoin("$", arr[i]), WORD), new);
-				new = new->next;
-				i++;
-			}
+			ft_add_after(tshell, arr, new, &i);
 		}
 		aux = next;
 	}
