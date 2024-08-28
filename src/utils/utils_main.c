@@ -6,21 +6,11 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 12:33:10 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/15 15:35:19 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/28 11:16:45 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int init_tshell(t_myshell *myshell, char **environ)
-{
-	myshell->tokens = NULL;
-	myshell->environ = ft_array_duplicate(environ);
-	myshell->prompt = NULL;
-	myshell->path = get_path(myshell);
-	myshell->comands = NULL;
-	return(SUCCESS);
-}
 
 void free_myshell(t_myshell *tshell)
 {
@@ -91,7 +81,9 @@ void print_args(t_myshell *tshell)
         i = 0;
         while (aux->args && aux->args[i])
         {
-            printf("->%s\n", aux->args[i]);
+			printf("ARGS->%s\n", aux->args[i]);
+			if(aux->comand_path)
+            	printf("PATH->%s\n", aux->comand_path);
             i++;
         }
         printf("----------------\n");  // Añadir separador entre comandos
@@ -140,7 +132,6 @@ int how_many_finds(char *str, int c)
 			return (count);
 		aux++;
 		count++;
-		printf("how many finds\n");
 	}
 	return (count);
 }

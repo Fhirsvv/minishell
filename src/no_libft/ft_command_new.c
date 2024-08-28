@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 17:02:21 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/12 18:06:51 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/28 11:12:25 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,5 @@ t_command	*ft_command_new(char **args, char *c_path)
 	new->args = ft_array_duplicate(args);
 	new->comand_path = c_path;
 	new->next = NULL;
-
-	//printf("nuevo token:\n%s\n%d\n", new->content, new->symbol);
 	return (new);
 }

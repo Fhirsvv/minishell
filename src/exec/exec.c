@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:26:18 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/16 18:03:48 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/20 11:32:30 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,95 +14,71 @@
 
 //todo: rehacer todo el exec ppara funcionar con s_commands xd
 
-static int real_exec(char *path, char **argv, char **environ)
+static int execute_command(t_command *command, char **environ)
 {
-    execve(path, argv, environ);
-    return(ERROR_INVALID_PARAMETER);
+    if (execve(command->comand_path, command->args, environ) == -1)
+    {
+        perror("Error en execve");
+        exit(ERROR_INVALID_PARAMETER);
+    }
+    return 0;
 }
 
-static void ft_exec(char *path, char **environ, t_token *token)
+// Función para manejar la ejecución de comandos con múltiples pipes
+void execute_pipeline(t_myshell *shell)
 {
-    int count = 0;
-    char **arr;
-    t_token *aux = token;
-
-    if (token == NULL)
+    t_command *cmd = shell->comands;
+    int pipe_fd[2], prev_fd = -1;
+    pid_t pid;
+    
+    while (cmd)
     {
-        fprintf(stderr, "Error: token es nulo\n");
-        return;
-    }
-
-    while (aux && aux->symbol == WORD)
-    {
-        count++;
-        aux = aux->next;
-    }
-
-    aux = token;
-    arr = malloc(sizeof(char *) * (count + 1));
-    if (arr == NULL)
-    {
-        perror("malloc");
-        return;
-    }
-
-    count = 0;
-    while (aux && aux->symbol == WORD)
-    {
-        arr[count] = ft_strdup(aux->content);
-        if (arr[count] == NULL)
+        if (cmd->next && cmd->next->comand_path)
         {
-            while (count > 0)
-                free(arr[--count]);
-            free(arr);
-            return;
+            if (pipe(pipe_fd) == -1)
+            {
+                perror("Error en pipe");
+                exit(ERROR_INVALID_PARAMETER);
+            }
         }
-        aux = aux->next;
-        count++;
-    }
-    arr[count] = NULL; // Terminador NULL
-
-    real_exec(path, arr, environ);
-
-    count = 0;
-    while (arr[count])
-    {
-        free(arr[count]);
-        count++;
-    }
-    free(arr);
-}
-
-int exec_main(t_myshell *tshell)
-{
-    t_token *buff;
-    char *path;
-    char *path_aux;
-
-    buff = tshell->tokens;
-    while (buff->next)
-    {
-        path = get_path(tshell);
-        if (path == NULL)
+        pid = fork();
+        if (pid < 0)
         {
-            fprintf(stderr, "Error: no se pudo obtener el path\n");
-            return ERROR_GENERIC;
+            perror("Error en fork");
+            exit(ERROR_INVALID_PARAMETER);
         }
-
-        path_aux = get_cmd_path(path, buff->content);
-        if (path_aux == NULL)
+        if (pid == 0) // Proceso hijo
         {
-            free(path);
-            fprintf(stderr, "Error: path_aux es nulo\n");
-            return ERROR_GENERIC;
+            // Si hay un comando anterior, conectar la entrada estándar al extremo de lectura del pipe anterior
+            if (prev_fd != -1)
+            {
+                dup2(prev_fd, STDIN_FILENO); // Conectar entrada estándar al extremo de lectura del pipe anterior
+                close(prev_fd);
+            }
+            // Si hay un siguiente comando, redirigir la salida estándar al extremo de escritura del nuevo pipe
+            if (cmd->next && cmd->next->comand_path)
+            {
+                close(pipe_fd[0]); // Cerrar el extremo de lectura del pipe en el hijo
+                dup2(pipe_fd[1], STDOUT_FILENO); // Redirigir salida estándar al pipe
+                close(pipe_fd[1]);
+            }
+            // Ejecutar el comando actual
+            execute_command(cmd, shell->environ);
         }
-
-        ft_exec(path_aux, tshell->environ, buff);
-
-        buff = buff->next;
-
-        free(path);
-        free(path_aux);
+        else // Proceso padre
+        {
+            // El padre cierra los descriptores usados
+            if (prev_fd != -1)
+                close(prev_fd);
+            if (cmd->next && cmd->next->comand_path)
+                close(pipe_fd[1]); // Cerrar el extremo de escritura del pipe en el padre
+            // Actualizar el descriptor previo para el siguiente ciclo
+            prev_fd = pipe_fd[0];
+            // Esperar a que el proceso hijo termine si es el último comando
+            if (!cmd->next)
+                waitpid(pid, NULL, 0);
+        }
+        // Avanzar al siguiente comando
+        cmd = cmd->next;
     }
-    return (SUCCESS);
 }

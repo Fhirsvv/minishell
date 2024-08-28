@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:24:11 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/15 15:40:11 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/28 11:47:24 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,21 @@ char	*ft_strtrim(char const *s1, char const *set)
 
 char	*ft_semi_strtrim(char const *s1, char const *set)
 {
+	int	len1;
+	int	len2;
+	char *ret;
+
+	if(!s1 || !set)
+		return(NULL);
+	ret = NULL;
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(set);
+	if(ft_strncmp(s1, set, len2) == 0 && len1 >= len2)
+		ret = ft_substr(s1,len2, len1 - len2);
+	return(ret);
+}
+/*char	*ft_semi_strtrim(char const *s1, char const *set)
+{
 	char	*res;
 	size_t	i;
 	size_t	start;
@@ -76,4 +91,4 @@ char	*ft_semi_strtrim(char const *s1, char const *set)
 	}
 	res[i] = '\0';
 	return (res);
-}
+}*/

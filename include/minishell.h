@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:18:48 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/16 15:04:51 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/08/28 11:50:19 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 #include <stdint.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 #define SUCCESS 0
 #define ERROR_GENERIC -1
@@ -67,15 +69,17 @@ void loop(t_myshell *tshell);
 //----PATH FUNCTIONS-------------------------------------------------------
 char *get_cmd_path(char *path, char *cmd);
 char *get_path(t_myshell *tshell);
+void ft_free2(char *arr1, char *arr2);
 
 
 //----EXEC FUNCTIONS------------------------------------------------------
-int exec_main(t_myshell *tshell);
 int build_comands_main(t_myshell *tshell);
 char **add_to_matrix(char **arr, char *new);
 int args_size(t_token *token);
 int new_command_symbols(t_myshell *tshell, t_token *aux);
-t_token *new_command(t_myshell *tshell, t_token *aux);;
+t_token *new_command(t_myshell *tshell, t_token *aux);
+
+void execute_pipeline(t_myshell *shell);
 
 
 //----EXPANDER FUNCTIONS--------------------------------------------------
@@ -91,6 +95,7 @@ const char *get_token_type_name(int symbol);
 void print_tokens(t_myshell *tshell);
 void free_loop(t_myshell *tshell);
 int how_many_finds(char *str, int c);
+void print_args(t_myshell *tshell);
 
 
 #endif
