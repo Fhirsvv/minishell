@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 20:38:20 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/28 11:14:42 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:27:22 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,17 @@ void loop(t_myshell *tshell)
 	while (1)
 	{
 		tshell->prompt = readline("MINISHELL$ ");
-		if (strlen(tshell->prompt) > 0)
-			add_history(tshell->prompt);
+		if(ft_strncmp(tshell->prompt, "exit", ft_strlen("exit")) == 0)
+			return;
 		if (count_quotes(tshell->prompt) == SUCCESS)
 			tokens_and_quotes(tshell->prompt, tshell);
+		if (strlen(tshell->prompt) > 0)
+			add_history(tshell->prompt);
 		expander_main(tshell);
 		build_comands_main(tshell);
 		//print_tokens(tshell);
-		print_args(tshell);
-		//todo:execute_pipeline(tshell);
+		//print_args(tshell);
+		main_exec(tshell);
 		free_loop(tshell);
 	}
 }

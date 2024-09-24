@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:18:48 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/28 11:50:19 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:17:35 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int args_size(t_token *token);
 int new_command_symbols(t_myshell *tshell, t_token *aux);
 t_token *new_command(t_myshell *tshell, t_token *aux);
 
-void execute_pipeline(t_myshell *shell);
+void main_exec(t_myshell *tshell);
 
 
 //----EXPANDER FUNCTIONS--------------------------------------------------

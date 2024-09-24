@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:56:03 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/17 11:50:16 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:45:16 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	build_comands_main(t_myshell *tshell)
 		}
 		if(!(aux->symbol == WORD || aux->symbol == D_QUOTE || aux->symbol == S_QUOTE))
 		{
-			printf("en el else\n");
 			error = new_command_symbols(tshell, aux);
 			if(error != SUCCESS)
 				return (error);
