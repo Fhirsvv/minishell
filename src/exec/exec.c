@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:26:18 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/09/24 17:47:26 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:12:39 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void main_exec(t_myshell *tshell)
 	cmd = tshell->comands;
 	while (cmd)
 	{
+		//is_builtin(tshell, cmd);
 		pid = fork();
 		if (pid < 0)
 		{
@@ -41,10 +42,27 @@ void main_exec(t_myshell *tshell)
 		{
 			execute_command(cmd, tshell->environ);
 		}
-		waitpid(pid, NULL, 0);
+		else
+		{
+			waitpid(pid, NULL, 0);
+		}
 		if (cmd->next)
 			cmd = cmd->next;
 		else
 			return;
 	}
 }
+
+/*
+void is_builtin(t_myshell *tshell, t_command *cmd)
+{
+	if (ft_strcmp(cmd->args[0], "cd") == 0)
+	if (ft_strcmp(cmd->args[0], "ls") == 0)
+	if (ft_strcmp(cmd->args[0], "echo") == 0)
+	if (ft_strcmp(cmd->args[0], "pwd") == 0)
+	if (ft_strcmp(cmd->args[0], "export") == 0)
+	if (ft_strcmp(cmd->args[0], "unset") == 0)
+	if (ft_strcmp(cmd->args[0], "env") == 0)
+	if (ft_strcmp(cmd->args[0], "exit") == 0)
+}
+*/

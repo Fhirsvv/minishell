@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 20:38:20 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/09/24 17:27:22 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/09/24 22:05:15 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,11 @@ void loop(t_myshell *tshell)
 	while (1)
 	{
 		tshell->prompt = readline("MINISHELL$ ");
-		if(ft_strncmp(tshell->prompt, "exit", ft_strlen("exit")) == 0)
-			return;
+		if (tshell->prompt == NULL)
+		{
+            write(STDOUT_FILENO, "exit\n", 5);
+            break;
+        }
 		if (count_quotes(tshell->prompt) == SUCCESS)
 			tokens_and_quotes(tshell->prompt, tshell);
 		if (strlen(tshell->prompt) > 0)
@@ -36,7 +39,7 @@ void loop(t_myshell *tshell)
 		expander_main(tshell);
 		build_comands_main(tshell);
 		//print_tokens(tshell);
-		//print_args(tshell);
+		print_args(tshell);
 		main_exec(tshell);
 		free_loop(tshell);
 	}
@@ -52,6 +55,7 @@ int main(int argc, char **argv, char **environ)
 		write(1, "MINISHELL does not accept arguments\n", 37);
 		return (ERROR_INVALID_PARAMETER);
 	}
+	main_signals();
 	init_tshell(&tshell, environ);
 	loop(&tshell);
 

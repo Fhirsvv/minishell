@@ -29,6 +29,9 @@ SRCS        :=      src/main.c \
                         src/exec/exec_commands_utils.c \
                         src/expander/expander.c \
                         src/utils/utils_main.c \
+                        src/signals/signals.c \
+                        src/builtins/tshell_cd.c \
+                        src/builtins/tshell_pwd.c \
                           
 OBJS        := $(SRCS:.c=.o)
 

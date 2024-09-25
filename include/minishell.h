@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:18:48 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/09/24 17:17:35 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:17:14 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #include <stdbool.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <signal.h>
 
 #define SUCCESS 0
 #define ERROR_GENERIC -1
@@ -97,5 +98,7 @@ void free_loop(t_myshell *tshell);
 int how_many_finds(char *str, int c);
 void print_args(t_myshell *tshell);
 
+//----SIGNALS-----------------------------------------------------------------
+void main_signals();
 
 #endif
