@@ -6,15 +6,13 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:26:18 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/09/24 18:12:39 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/10/11 23:57:24 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// todo: rehacer todo el exec ppara funcionar con s_commands xd
-
-static int execute_command(t_command *command, char **environ)
+static int execute_command(t_comand *command, char **environ)
 {
 	if (execve(command->comand_path, command->args, environ) == -1)
 	{
@@ -23,9 +21,9 @@ static int execute_command(t_command *command, char **environ)
 	}
 	return 0;
 }
-void main_exec(t_myshell *tshell)
+void exec(t_myshell *tshell)
 {
-	t_command *cmd;
+	t_comand *cmd;
 	pid_t pid;
 
 	cmd = tshell->comands;

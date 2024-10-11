@@ -1,46 +1,65 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_build_command.c                               :+:      :+:    :+:   */
+/*   comands.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:56:03 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/09/24 16:45:16 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/10/12 00:03:19 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-static char	**copy_and_add(char **arr, char **aux, char *new);
 
-int	build_comands_main(t_myshell *tshell)
+static char	**copy_and_add(char **arr, char **aux, char *new)
 {
-	int		error;
-	t_token	*aux;
+	int	i;
 	
-	aux = tshell->tokens;
-	while(aux)
+	i = 0;
+	while (arr[i])
 	{
-		if(aux->symbol == WORD || aux->symbol == D_QUOTE || aux->symbol == S_QUOTE)
+		aux[i] = ft_strdup(arr[i]);
+		if (!aux[i])
 		{
-			aux = new_command(tshell, aux);
-			if(!aux)
-				return(ERROR_MEMORY);
+			free_arr(aux);
+			return (aux);
 		}
-		if(!(aux->symbol == WORD || aux->symbol == D_QUOTE || aux->symbol == S_QUOTE))
-		{
-			error = new_command_symbols(tshell, aux);
-			if(error != SUCCESS)
-				return (error);
-		}
-		aux = aux->next;
+		i++;
 	}
-	return(SUCCESS);    
+	aux[i] = ft_strdup(new);
+	if (!aux[i])
+	{
+		free_arr(aux);
+		return (aux);
+	}
+	aux[i + 1] = NULL;
+	return (aux);
 }
 
-int	new_command_symbols(t_myshell *tshell, t_token *aux)
+static char	**add_to_matrix(char **arr, char *new)
 {
-	t_command	*new;
+	char	**aux;
+	size_t	i;
+
+	i = 0;
+	if(!arr)
+	{
+		aux = ft_calloc(i + 2, sizeof(char *));
+		aux[0] = ft_strdup(new);
+		return (aux);
+	}
+	while(arr[i])
+			i++;
+	aux = ft_calloc(i + 2, sizeof(char *));
+	if (!aux)
+		return (NULL);
+	return (copy_and_add(arr, aux, new));
+}
+
+static int	new_command_symbols(t_myshell *tshell, t_token *aux)
+{
+	t_comand	*new;
 	char		**arr;
 
 	arr = NULL;
@@ -53,7 +72,7 @@ int	new_command_symbols(t_myshell *tshell, t_token *aux)
 	return(SUCCESS);
 }
 
-t_token	*new_command(t_myshell *tshell, t_token *aux)
+ static t_token	*new_command(t_myshell *tshell, t_token *aux)
 {
 	char		**arr;
 	char		**buff;
@@ -82,47 +101,28 @@ t_token	*new_command(t_myshell *tshell, t_token *aux)
 	return (aux);
 }
 
-char	**add_to_matrix(char **arr, char *new)
-{
-	char	**aux;
-	size_t	i;
 
-	i = 0;
-	if(!arr)
-	{
-		aux = ft_calloc(i + 2, sizeof(char *));
-		aux[0] = ft_strdup(new);
-		return (aux);
-	}
-	while(arr[i])
-			i++;
-	aux = ft_calloc(i + 2, sizeof(char *));
-	if (!aux)
-		return (NULL);
-	return (copy_and_add(arr, aux, new));
-}
-
-static char	**copy_and_add(char **arr, char **aux, char *new)
+int	comands(t_myshell *tshell)
 {
-	int	i;
+	int		error;
+	t_token	*aux;
 	
-	i = 0;
-	while (arr[i])
+	aux = tshell->tokens;
+	while(aux)
 	{
-		aux[i] = ft_strdup(arr[i]);
-		if (!aux[i])
+		if(aux->symbol == WORD || aux->symbol == D_QUOTE || aux->symbol == S_QUOTE)
 		{
-			free_arr(aux);
-			return (aux);
+			aux = new_command(tshell, aux);
+			if(!aux)
+				return(ERROR_MEMORY);
 		}
-		i++;
+		if(!(aux->symbol == WORD || aux->symbol == D_QUOTE || aux->symbol == S_QUOTE))
+		{
+			error = new_command_symbols(tshell, aux);
+			if(error != SUCCESS)
+				return (error);
+		}
+		aux = aux->next;
 	}
-	aux[i] = ft_strdup(new);
-	if (!aux[i])
-	{
-		free_arr(aux);
-		return (aux);
-	}
-	aux[i + 1] = NULL;
-	return (aux);
+	return(SUCCESS);
 }

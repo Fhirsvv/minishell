@@ -6,15 +6,15 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 17:11:33 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/07 17:12:12 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/10/11 23:54:26 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_commandadd_back(t_command **lst, t_command *new)
+void	ft_commandadd_back(t_comand **lst, t_comand *new)
 {
-	t_command	*node;
+	t_comand	*node;
 
 	if(new == NULL)
 	{

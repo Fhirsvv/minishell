@@ -6,13 +6,13 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 21:43:45 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/09/24 21:54:42 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/10/12 00:14:51 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void my_cd(t_command *cmd)
+void my_cd(t_comand *cmd)
 {
 	if (!cmd->args[1])
 	{

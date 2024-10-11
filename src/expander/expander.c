@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 23:19:58 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/16 18:11:32 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/10/11 23:56:14 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,6 @@ char	*substr_part_expand(char *auxstr)
 	return(ft_substr(auxstr, 1, i - 1));
 }
 
-/// @brief SUBSITITUTE THE VAR CONTENT IN TOKENS->D_QUOTE
-/// @param prompt ORIGINAL PROMPT
-/// @param old_str WHAT WE WANT TO CHANGE
-/// @param new_str WHAT WE ARE GOING TO CHANGE OLD_STR
-/// @return THE PROMPT CHANGED
 char	*replace_substr(char *prompt, char *old_str, char *new_str)
 {
 	int		i;
@@ -58,11 +53,6 @@ char	*replace_substr(char *prompt, char *old_str, char *new_str)
 	return(aux);
 }
 
-/// @brief GET THE VAR CONTENT TO SUBSTITUTE IN THE PROMPT AND SUBSTITUTE IT
-/// @param post_dollar WHAT IS AFTER THE DOLAR SIGN IN THE PROMPT (VAR NAME)
-/// @param in_path PART OF THE ENVIRON WHERE POST_DOLLAR IS FOUND
-/// @param token CURRENT TOKEN WE ARE WORKING WITH
-/// @param tshell GENERAL STRUCT
 int	get_char_to_expand(char *post_dollar, char *in_path, t_token *token)
 {
 	char	*aux;
@@ -83,9 +73,6 @@ int	get_char_to_expand(char *post_dollar, char *in_path, t_token *token)
 	return (SUCCESS);
 }
 
-/// @brief GET THE VAR NAME AFTER DE $ IN THE PROMPT
-/// @param token TOKEN WICH IS MARKED AS D_QUOTE
-/// @param tshell GENERAL STRUCT
 int	get_part_expand(t_token *token, t_myshell *tshell)
 {
 	char	*auxstr;
@@ -109,9 +96,7 @@ int	get_part_expand(t_token *token, t_myshell *tshell)
 	return (get_char_to_expand(auxstr, aux2, token));
 }
 
-/// @brief MAIN FUNCTION TO EXPAND THE PROMPTS
-/// @param tshell GENERAL STRUCT
-int	expander_main(t_myshell *tshell)
+int	expander(t_myshell *tshell)
 {
 	int		error;
 	t_token	*aux;
@@ -122,7 +107,7 @@ int	expander_main(t_myshell *tshell)
 		if ((aux->symbol == D_QUOTE || aux->symbol == WORD) && ft_strchr(aux->content, '$') && ft_strcmp(aux->content, "$") != 0)
 		{
 			error = get_part_expand(aux, tshell);
-			if (error != SUCCESS) // diferente maenjo de errores segun lo que devuelva
+			if (error != SUCCESS)
 				return(ERROR_GENERIC);
 		}
 		aux = aux->next;

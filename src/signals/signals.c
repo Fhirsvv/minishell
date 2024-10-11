@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 18:15:34 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/09/24 22:02:55 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/10/11 23:10:32 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,7 @@ void ctrlc(int sig)
 	rl_redisplay();
 }
 
-void ctrld(int sig)
-{
-	(void)sig;
-	exit(0);
-}
-
-void ctrl_(int sig)
-{
-	(void)sig;
-}
-
-void main_signals()
+void signals()
 {
 	signal(SIGINT, &ctrlc);
-	signal(EOF, &ctrld);
-	signal(SIGQUIT, &ctrl_);
 }

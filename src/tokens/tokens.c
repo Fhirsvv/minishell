@@ -6,13 +6,13 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 12:08:06 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/17 11:50:49 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/10/11 23:35:16 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	handle_space(char *prompt, int *i, char **start_q, char quote_char, t_myshell *tshell)
+static void	handle_space(char *prompt, int *i, char **start_q, char quote_char, t_myshell *tshell)
 {
 	if(prompt[*i] == ' ' && quote_char == '\0' && *start_q)
 	{
@@ -21,7 +21,7 @@ void	handle_space(char *prompt, int *i, char **start_q, char quote_char, t_myshe
 	}
 }
 
-void	handle_quotes(char *prompt, int *i, char *quote_char, char **start_q, t_myshell *tshell)
+static void	handle_quotes(char *prompt, int *i, char *quote_char, char **start_q, t_myshell *tshell)
 {
 	if(prompt[*i] == '\'' || prompt[*i] == '"')
 	{
@@ -42,7 +42,7 @@ void	handle_quotes(char *prompt, int *i, char *quote_char, char **start_q, t_mys
 	}
 }
 
-void	handle_pipe(char *prompt, int *i, char *quote_char, char **start_q, t_myshell *tshell)
+static void	handle_pipe(char *prompt, int *i, char *quote_char, char **start_q, t_myshell *tshell)
 {
 	if (prompt[*i] == '|')
 	{
@@ -60,7 +60,7 @@ void	handle_pipe(char *prompt, int *i, char *quote_char, char **start_q, t_myshe
 	}
 }
 
-void	handle_redirection(char *prompt, int *i, char **start_q, char quote_char, t_myshell *tshell)
+static void	handle_redirection(char *prompt, int *i, char **start_q, char quote_char, t_myshell *tshell)
 {
 	if ((prompt[*i] == '<' || prompt[*i] == '>') && quote_char == '\0')
 	{
@@ -87,7 +87,7 @@ void	handle_redirection(char *prompt, int *i, char **start_q, char quote_char, t
 	}
 }
 
-void	tokens_and_quotes(char *prompt, t_myshell *tshell)
+void	tokens(char *prompt, t_myshell *tshell)
 {
 	char	*start_q;
 	int		i;

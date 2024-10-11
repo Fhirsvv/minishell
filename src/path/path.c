@@ -6,21 +6,14 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 18:24:33 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/28 11:50:00 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/10/11 23:41:39 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void ft_free2(char *arr1, char *arr2)
+char	*get_path(t_myshell *tshell)
 {
-	free(arr1);
-	free(arr2);
-}
-
-char *get_path(t_myshell *tshell)
-{
-	
 	int		i;
 	char	*envp_path;
 
@@ -38,7 +31,7 @@ char *get_path(t_myshell *tshell)
 	return (NULL);
 }
 
-char *get_cmd_path(char *path, char *cmd)
+char	*get_cmd_path(char *path, char *cmd)
 {
 	char	**possible_path;
 	char	*cmd_route;
