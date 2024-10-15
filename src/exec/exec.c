@@ -6,13 +6,13 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:26:18 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/10/11 23:57:24 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:36:02 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int execute_command(t_comand *command, char **environ)
+static int	execute_command(t_comand *command, char **environ)
 {
 	if (execve(command->comand_path, command->args, environ) == -1)
 	{
@@ -21,16 +21,27 @@ static int execute_command(t_comand *command, char **environ)
 	}
 	return 0;
 }
-void exec(t_myshell *tshell)
+void	exec(t_myshell *tshell)
 {
-	t_comand *cmd;
-	pid_t pid;
-
+	t_comand	*cmd;
+	int		*pid;
+	
+	pid = ft_calloc(tshell->pipes_count, sizeof(int));
 	cmd = tshell->comands;
 	while (cmd)
 	{
+		                    
+		cmd = cmd->next;
+	}
+	
+	free(pid);
+}
+void ns(t_myshell *tsh)
+{
+	while (cmd)
+	{
 		//is_builtin(tshell, cmd);
-		pid = fork();
+		pid[i] = fork();
 		if (pid < 0)
 		{
 			perror("Error en fork");
@@ -38,7 +49,7 @@ void exec(t_myshell *tshell)
 		}
 		if (pid == 0) // hijo
 		{
-			execute_command(cmd, tshell->environ);
+			execute_command(cmd, tsh->environ);
 		}
 		else
 		{
@@ -50,17 +61,17 @@ void exec(t_myshell *tshell)
 			return;
 	}
 }
-
 /*
-void is_builtin(t_myshell *tshell, t_command *cmd)
+int	comand_exec(t_myshell *tshell, t_command *cmd)
 {
 	if (ft_strcmp(cmd->args[0], "cd") == 0)
-	if (ft_strcmp(cmd->args[0], "ls") == 0)
-	if (ft_strcmp(cmd->args[0], "echo") == 0)
-	if (ft_strcmp(cmd->args[0], "pwd") == 0)
-	if (ft_strcmp(cmd->args[0], "export") == 0)
-	if (ft_strcmp(cmd->args[0], "unset") == 0)
-	if (ft_strcmp(cmd->args[0], "env") == 0)
-	if (ft_strcmp(cmd->args[0], "exit") == 0)
+	else if (ft_strcmp(cmd->args[0], "ls") == 0)
+	else if (ft_strcmp(cmd->args[0], "echo") == 0)
+	else if (ft_strcmp(cmd->args[0], "pwd") == 0)
+	else if (ft_strcmp(cmd->args[0], "export") == 0)
+	else if (ft_strcmp(cmd->args[0], "unset") == 0)
+	else if (ft_strcmp(cmd->args[0], "env") == 0)
+	else if (ft_strcmp(cmd->args[0], "exit") == 0)
+	
 }
 */

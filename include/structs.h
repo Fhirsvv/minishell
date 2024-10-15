@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 16:07:55 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/10/11 23:52:43 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:36:00 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,19 @@ enum e_token_types
 	WORD,
 	D_QUOTE,
 	S_QUOTE
+};
+
+enum e_builtins
+{
+	CD = 0,
+	LS,
+	ECHO,
+	PWD,
+	EXPORT,
+	UNSET,
+	ENV,
+	EXIT,
+	NO_BUILTIN
 };
 
 typedef struct s_fds
@@ -57,6 +70,7 @@ typedef struct s_myshell
 	char **environ;
 	char *path;
 	char *prompt;
+	int pipes_count;
 	t_token *tokens;
 	t_comand *comands;
 }	t_myshell;
