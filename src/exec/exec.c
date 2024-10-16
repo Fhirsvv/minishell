@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:26:18 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/10/16 21:04:45 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/10/16 21:34:58 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,23 @@ static int	execute_command(t_comand *command, char **environ)
 }
 
 //https://www.youtube.com/watch?v=6xbLgZpOBi8
-static void exec_pipe(t_comand *cmd, int *i, int *pids)
+//https://www.youtube.com/watch?v=NkfIUo_Qq4c
+static void	exec_pipe(t_comand *cmd)
 {
-	int fd[2]; //fd[0] = read end -- fd[1] = write end
-	int pid1;
-	int pid2;
+	//fd[0] = read end -- fd[1] = write end
+	int fd[2];
+	int pids[2];
 
 	if (pipe(fd) < 0)
 		perror("error pipe\n");
-	pid1 = fork();
+	pids[0] = fork();
 	
 	//algo con fds->fd_in y fd_out
-	if(cmd->fds->input_file != 0 ???)
+	if(cmd->fds->fd_in < 0)
 		dup2(cmd->fds->fd_in, STDIN_FILENO);
-	if (pid1 < 0)
+	if (pids[0] < 0)
 		perror("errore algo 1\n");
-	if (pid1 == 0)
+	if (pids[0] == 0)
 	{
 		close(fd[0]);
 		//dup2(fd[1], cmd->fds->fd_out);
@@ -47,46 +48,48 @@ static void exec_pipe(t_comand *cmd, int *i, int *pids)
 		//exec
 		close(fd[1]);
 	}
-	if (cmd->next->next)
+	if (cmd->next->next) //o aqui solo añadir el dup2(stdin_fileno, cmd->next->next->fds.fd_in)
 	{
-		pid2 = fork();
-		if (pid2 < 0)
+		pids[1] = fork();
+		if (pids[1] < 0)
 			perror("error algo 2\n");
-		if (pid2 == 0)
+		if (pids[1] == 0)
 		{
 			dup2(fd[0], STDIN_FILENO);
 			close(fd[0]);
 			close(fd[1]);
 			//exec
 			//todoooooooooo
-			//ver como enlazar varios comandos y que hacer con los stdin y stdout
 		}
 	}
-	waitpid(pid1, NULL, 0);
-	waitpid(pid2, NULL, 0);
+
+	close(fd[0]);
+	close(fd[1]);
+	waitpid(pids[0], NULL, 0);
+	waitpid(pids[1], NULL, 0);
 }
 
 void	exec(t_myshell *tshell)
 {
 	t_comand	*cmd;
-	int		*pid;
+	int		*flds;
 	int i;
 	
 	i = 0;
 	//inicio aqui u nproceso para que aunque solo haya
 	//un comando no cierre el comando actual
-	pid = ft_calloc(tshell->pipes_count * 2, sizeof(int));
+	flds = ft_calloc(tshell->pipes_count + 1, sizeof(int));
 	cmd = tshell->comands;
 	while (cmd)
 	{
 		if (tshell->pipes_count == 0)
 			ft_exec_one(cmd);
 		else
-			exec_pipe(cmd, i, pid);
+			exec_pipe(cmd);
 		cmd = cmd->next;
 	}
 	
-	free(pid);
+	free(flds);
 }
 void ns(t_myshell *tsh)
 {
