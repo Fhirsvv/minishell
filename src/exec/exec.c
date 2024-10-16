@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:26:18 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/10/16 20:54:53 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/10/16 21:04:45 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ static void exec_pipe(t_comand *cmd, int *i, int *pids)
 	if (pipe(fd) < 0)
 		perror("error pipe\n");
 	pid1 = fork();
+	
+	//algo con fds->fd_in y fd_out
+	if(cmd->fds->input_file != 0 ???)
+		dup2(cmd->fds->fd_in, STDIN_FILENO);
 	if (pid1 < 0)
 		perror("errore algo 1\n");
 	if (pid1 == 0)
@@ -43,19 +47,23 @@ static void exec_pipe(t_comand *cmd, int *i, int *pids)
 		//exec
 		close(fd[1]);
 	}
-	waitpid(pid1, NULL, 0);
-	pid2 = fork();
-	if (pid2 < 0)
-		perror("error algo 2\n");
-	if (pid2 == 0)
+	if (cmd->next->next)
 	{
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
-		close(fd[1]);
-		//exec
-		//todoooooooooo
-		//ver como enlazar varios comandos y que hacer con los stdin y stdout
+		pid2 = fork();
+		if (pid2 < 0)
+			perror("error algo 2\n");
+		if (pid2 == 0)
+		{
+			dup2(fd[0], STDIN_FILENO);
+			close(fd[0]);
+			close(fd[1]);
+			//exec
+			//todoooooooooo
+			//ver como enlazar varios comandos y que hacer con los stdin y stdout
+		}
 	}
+	waitpid(pid1, NULL, 0);
+	waitpid(pid2, NULL, 0);
 }
 
 void	exec(t_myshell *tshell)
